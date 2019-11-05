@@ -1,2 +1,0 @@
-# Ignore the target directory so binaries don't get included in git repository
-target
