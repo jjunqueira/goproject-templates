@@ -19,7 +19,7 @@ mods:
 	go mod tidy
 	go mod verify
 format: $(SOURCE_LIST)
-	$(GOPATH)/bin/goimports -w $^
+	find . -name \*.go -not -path vendor -not -path target -exec $(GOPATH)/bin/goimports -w {} \;
 lint: format
 	${GOPATH}/bin/golangci-lint run --enable-all --disable funlen
 
