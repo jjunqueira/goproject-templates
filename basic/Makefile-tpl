@@ -1,7 +1,6 @@
 # Go parameters
 GOCMD=go
 GOBUILD=$(GOCMD) build
-GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 BINARY_NAME={{ .Name }}
@@ -31,9 +30,7 @@ build-debug:
 test: 
 	$(GOTEST) -v ./...
 clean: 
-	$(GOCLEAN)
-	rm -f target/$(BINARY_NAME)
-	rm -f target/$(BINARY_LINUX)
+	rm -f target/*
 run:
 	$(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_NAME) -v cmd/$(BINARY_NAME)/main.go
 	./target/$(BINARY_NAME)
