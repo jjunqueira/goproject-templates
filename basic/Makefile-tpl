@@ -37,11 +37,11 @@ run:
 
 # Cross compilation
 build-osx:
-	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 $(GOBUILD)" -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_LINUX) -v cmd/$(BINARY_NAME)/main.go
+	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 $(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_LINUX) -v cmd/$(BINARY_NAME)/main.go
 build-linux:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD)" -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_LINUX) -v cmd/$(BINARY_NAME)/main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_LINUX) -v cmd/$(BINARY_NAME)/main.go
 build-freebsd:
-	CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 $(GOBUILD)" -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_FREEBSD) -v cmd/$(BINARY_NAME)/main.go
+	CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 $(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_FREEBSD) -v cmd/$(BINARY_NAME)/main.go
 
 # Packaging
 package: package-osx package-linux package-freebsd
