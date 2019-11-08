@@ -10,6 +10,7 @@ func newConfig(searchpaths ...string) (*Config, error) {
 
 	viper.AutomaticEnv()
 	viper.SetConfigName("config")
+
 	for _, path := range searchpaths {
 		viper.AddConfigPath(path)
 	}
