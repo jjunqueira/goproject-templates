@@ -14,12 +14,14 @@ func NewApp() (*App, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	a.Metrics = m
 
 	c, err := newConfig()
 	if err != nil {
 		return nil, err
 	}
+
 	a.Config = c
 
 	return a, err

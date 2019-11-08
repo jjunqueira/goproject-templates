@@ -21,5 +21,6 @@ func run() error {
 	}
 
 	fmt.Printf("app %v", app)
+
 	return nil
 }
