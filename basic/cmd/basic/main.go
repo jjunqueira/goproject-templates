@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"basic/pkg/app"
 )
 
 func main() {
@@ -13,5 +15,11 @@ func main() {
 }
 
 func run() error {
+	app, err := app.NewApp()
+	if err != nil {
+		return err
+	}
+
+	fmt.Printf("app %v", app)
 	return nil
 }
