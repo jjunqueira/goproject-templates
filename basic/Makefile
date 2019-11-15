@@ -9,7 +9,6 @@ TARGET_DIR := TARGET_DIR_BASE
 
 # define functions - These can be reused in multiple targets. Any exported VARs are available in the function
 define compile 
-	git config --global url.ssh://git@bitbucket.services.cymru.com:7999/.insteadOf https://bitbucket.services.cymru.com/scm/
 	for COMMAND in $(DIR_NAME)/cmd/* ; do \
 		go build -trimpath -v -o "$(TARGET_DIR)/bin/$$(basename $${COMMAND})" "$${COMMAND}/..."; \
 	done
