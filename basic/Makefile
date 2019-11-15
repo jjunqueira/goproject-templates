@@ -5,7 +5,7 @@ GOTEST=$(GOCMD) test
 DIR_NAME := $(shell pwd)
 PACKAGE_NAME := $(shell basename $(DIR_NAME))
 TARGET_DIR_BASE := $(DIR_NAME)/target
-TARGET_DIR := TARGET_DIR_BASE
+TARGET_DIR := $(TARGET_DIR_BASE)
 
 # define functions - These can be reused in multiple targets. Any exported VARs are available in the function
 define compile 
@@ -20,8 +20,8 @@ define copy-support
 endef
 
 # Full build commands
-all: mods lint clean build test
-release: mods lint clean test package-binaries package-ansible
+all: mods lint test build
+release: mods lint test package-binaries package-ansible
 
 # Code cleanup commands
 mods:
