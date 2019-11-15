@@ -16,7 +16,6 @@ endef
 
 define copy-support
 	mkdir -p $(TARGET_DIR)
-	cp -r $(DIR_NAME)/etc $(TARGET_DIR)
 endef
 
 # Full build commands
