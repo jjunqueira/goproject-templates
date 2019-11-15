@@ -1,0 +1,22 @@
+[Unit]
+Description={{ .Name }}
+Requires=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/share/{{ .Name }}
+ExecStart=/usr/share/{{ .Name }}/bin/{{ .Name }}
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=60
+SuccessExitStatus=
+User={{ .Name }}
+Group=wheel
+ExecStartPre=/bin/mkdir -p /run/{{ .Name }}
+ExecStartPre=/bin/chown {{ .Name }}:wheel /run/{{ .Name }}
+ExecStartPre=/bin/chmod 755 /run/{{ .Name }}
+PermissionsStartOnly=true
+LimitNOFILE=1024
+
+[Install]
+WantedBy=multi-user.target

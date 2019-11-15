@@ -1,0 +1,84 @@
+---
+
+- name: Add user "processing-shim"  
+  user:
+    name: {{ .Name }}
+    groups: {{ .Name }}
+    shell: /sbin/nologin
+    append: yes
+    comment: "{{ .Name }} User"
+    state: present
+  become: true
+
+- name: Create app directory
+  file:
+    path: "/usr/share/{{ .Name }}"
+    state: directory
+    owner: {{ .Name }}
+    group: wheel
+    mode: 0775
+
+- name: Create app bin directory
+  file:
+    path: "/usr/share/{{ .Name }}/bin"
+    state: directory
+    owner: {{ .Name }}
+    group: wheel
+    mode: 0775
+
+- name: Create app conf directory
+  file:
+    path: "/usr/share/{{ .Name }}/conf"
+    state: directory
+    owner: {{ .Name }}
+    group: wheel
+    mode: 0775
+
+- name: Create app logs directory
+  file:
+    path: "/var/log/{{ .Name }}"
+    state: directory
+    owner: {{ .Name }}
+    group: wheel
+    mode: 0775
+
+- name: Copy bin file
+  copy:
+    src: "{{ .Name }}-linux"
+    dest: "/usr/share/{{ .Name }}/bin/{{ .Name }}"
+    owner: {{ .Name }}
+    group: wheel
+    mode: "0775"
+
+- name: Copy config file
+  copy:
+    src: "config.toml"
+    dest: "/etc/{{ .Name }}/config.toml"
+    owner: {{ .Name }}
+    group: wheel
+    mode: "0664"
+
+- name: Create conf symbolic links
+  file:
+    src: "/usr/share/{{ .Name }}/conf"
+    dest: "/etc/{{ .Name }}"
+    state: link
+
+- name: Create binary symbolic links
+  file:
+    src: "/usr/share/{{ .Name }}/bin/{{ .Name }}"
+    dest: "/usr/local/bin/{{ .Name }}"
+    state: link
+
+- name: Set systemd script
+  copy:
+    src: "{{ .Name }}.service"
+    dest: "/etc/systemd/system/{{ .Name }}.service"
+    mode: 0644
+
+- name: Reload systemctl
+  systemd:
+    name: {{ .Name }}
+    daemon_reload: yes
+    enabled: yes
+    state: restarted
