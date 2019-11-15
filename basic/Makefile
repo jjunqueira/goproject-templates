@@ -10,7 +10,7 @@ TARGET_DIR := $(TARGET_DIR_BASE)
 # define functions - These can be reused in multiple targets. Any exported VARs are available in the function
 define compile 
 	for COMMAND in $(DIR_NAME)/cmd/* ; do \
-		go build -trimpath -v -o "$(TARGET_DIR)/bin/$$(basename $${COMMAND})" "$${COMMAND}/..."; \
+		go build -trimpath -v -o "$(TARGET_DIR)/bin/$$(basename $${COMMAND})-$${GOOS}" "$${COMMAND}/..."; \
 	done
 endef
 
