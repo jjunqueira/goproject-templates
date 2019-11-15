@@ -1,6 +1,6 @@
 ---
 
-- name: Add user "processing-shim"  
+- name: Add user "{{ .Name }}"  
   user:
     name: {{ .Name }}
     groups: {{ .Name }}
