@@ -78,4 +78,4 @@ package-freebsd: build-freebsd
 package-ansible: build-all
 	cp -r deployments/ansible target/ansible
 	cp -r $(TARGET_DIR_BASE)/**/bin/* $(TARGET_DIR_BASE)/ansible/files
-	tar -zcvf target/$(PACKAGE_NAME)_ansible.tar.gz target/ansible
+	tar -zcvf target/$(PACKAGE_NAME)_ansible.tar.gz target/ansible/*
