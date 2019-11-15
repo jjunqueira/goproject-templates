@@ -20,7 +20,7 @@ endef
 
 # Full build commands
 all: mods lint test build
-release: mods lint test package-binaries package-ansible
+release: mods lint test package-ansible
 
 # Code cleanup commands
 mods:
