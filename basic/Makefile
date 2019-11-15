@@ -46,7 +46,7 @@ build-all: build-osx build-linux build-freebsd
 build-osx: export CGO_ENABLED=0
 build-osx: export GOOS=darwin
 build-osx: export GOARCH=amd64
-build-freebsd: export TARGET_DIR = $(TARGET_DIR_BASE)/$(GOOS)
+build-osx: export TARGET_DIR = $(TARGET_DIR_BASE)/$(GOOS)
 build-osx:
 	$(call copy-support)
 	$(call compile)
@@ -54,7 +54,7 @@ build-osx:
 build-linux: export CGO_ENABLED=0
 build-linux: export GOOS=linux
 build-linux: export GOARCH=amd64
-build-freebsd: export TARGET_DIR = $(TARGET_DIR_BASE)/$(GOOS)
+build-linux: export TARGET_DIR = $(TARGET_DIR_BASE)/$(GOOS)
 build-linux:
 	$(call copy-support)
 	$(call compile)
