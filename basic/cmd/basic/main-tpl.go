@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"basic/pkg/app"
+	"{{ .ModuleName }}/pkg/app"
 )
 
 func main() {
