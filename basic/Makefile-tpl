@@ -11,7 +11,7 @@ DIR_NAME := $(shell pwd)
 
 # Full build commands
 all: mods format lint clean build test
-release: mods format lint clean build test build-osx build-linux build-freebsd package
+release: mods format lint clean build test build-all package-binaries package-ansible
 
 # Code cleanup commands
 mods:
@@ -36,6 +36,7 @@ run:
 	./target/$(BINARY_NAME)
 
 # Cross compilation
+build-all: build-osx build-linux build-freebsd
 build-osx:
 	CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 $(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_OSX) -v cmd/$(BINARY_NAME)/main.go
 build-linux:
@@ -44,10 +45,14 @@ build-freebsd:
 	CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 $(GOBUILD) -gcflags="-trimpath=$(DIR_NAME)" -o target/$(BINARY_FREEBSD) -v cmd/$(BINARY_NAME)/main.go
 
 # Packaging
-package: package-osx package-linux package-freebsd
+package-binaries: package-osx package-linux package-freebsd
 package-osx:
-	tar -zcvf target/$(BINARY_OSX).tar.gz target/$(BINARY_OSX)
+	tar -zcvf target/release_$(BINARY_OSX).tar.gz target/$(BINARY_OSX)
 package-linux:
-	tar -zcvf target/$(BINARY_LINUX).tar.gz target/$(BINARY_LINUX)
+	tar -zcvf target/release_$(BINARY_LINUX).tar.gz target/$(BINARY_LINUX)
 package-freebsd:
-	tar -zcvf target/$(BINARY_FREEBSD).tar.gz target/$(BINARY_FREEBSD)
+	tar -zcvf target/release_$(BINARY_FREEBSD).tar.gz target/$(BINARY_FREEBSD)
+package-ansible:
+	cp -r deployments/ansible target/ansible
+	cp target/release* target/ansible/files
+	tar -zcvf target/release_$(BINARY_NAME)_ansible.tar.gz target/ansible
