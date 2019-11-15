@@ -76,7 +76,6 @@ package-linux: build-linux
 package-freebsd: build-freebsd
 	tar -zcvf $(TARGET_DIR_BASE)/$(PACKAGE_NAME)-$(GOOS).tar.gz $(TARGET_DIR_BASE)/$(GOOS)/*
 package-ansible: build-all
-	rm target/$(PACKAGE_NAME)_ansible.tar.gz
 	cp -r deployments/ansible target/ansible
 	cp -r $(TARGET_DIR_BASE)/**/bin/* $(TARGET_DIR_BASE)/ansible/files
 	cd target/ansible; tar -zcvf ../$(PACKAGE_NAME)_ansible.tar.gz .
