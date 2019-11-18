@@ -1,0 +1,4 @@
+[logging]
+level="debug"
+encoding="json"
+outputpaths=["stdout", "/var/log/{{ .Name }}"]

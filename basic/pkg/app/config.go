@@ -3,7 +3,9 @@ package app
 import "github.com/spf13/viper"
 
 // Config application configs
-type Config struct{}
+type Config struct {
+	logging logSettings
+}
 
 func newConfig(searchpaths ...string) (*Config, error) {
 	c := new(Config)
