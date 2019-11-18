@@ -4,6 +4,7 @@ package app
 type App struct {
 	Metrics *Metrics
 	Config  *Config
+	Log     Logger
 }
 
 // NewApp constructs a new App instanace and its dependencies
@@ -23,6 +24,15 @@ func NewApp() (*App, error) {
 	}
 
 	a.Config = c
+
+	l, err := newLogger(c.logging)
+	if err != nil {
+		return nil, err
+	}
+
+	a.Log = l
+
+	a.Log.Info("Application bootstrap complete")
 
 	return a, err
 }
