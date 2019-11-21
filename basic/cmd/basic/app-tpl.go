@@ -38,7 +38,7 @@ func NewApp() (*App, error) {
 
 	a.Log = l
 
-	a.Log.Info("Application bootstrap complete")
+	a.Log.Info("Application bootstrap completed with configuration %v", a.Config)
 
 	return a, err
 }

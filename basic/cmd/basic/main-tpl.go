@@ -18,7 +18,5 @@ func run() error {
 		return err
 	}
 
-	fmt.Printf("app %v", app)
-
 	return nil
 }
