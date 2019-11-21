@@ -1,8 +1,6 @@
 package main
 
 import (
-	"go.uber.org/zap"
-
 	"{{ .ModuleName }}/pkg/logging"
 	"{{ .ModuleName }}/pkg/config"
 	"{{ .ModuleName }}/pkg/metrics"

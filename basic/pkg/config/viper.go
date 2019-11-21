@@ -7,6 +7,11 @@ type Config struct {
 	Logging LogSettings
 }
 
+type LogSettings struct {
+	Level       string   `mapstructure:"level" json:"level"`
+	OutputPaths []string `mapstructure:"outputpaths" json:"outputPaths"`
+}
+
 // NewViperConfig construcs a new viper configuration loader
 func NewViperConfig(searchpaths ...string) (*Config, error) {
 	c := new(Config)

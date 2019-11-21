@@ -1,6 +1,11 @@
 package logging
 
-import "go.uber.org/zap"
+import (
+	"go.uber.org/zap"
+
+	"{{ .ModuleName }}/pkg/config"
+)
+
 
 // Logger custom logging interface
 type Logger interface {
@@ -15,21 +20,16 @@ type Logger interface {
 	Errorw(msg string, keysAndValues ...interface{})
 }
 
-type LogSettings struct {
-	Level       string   `mapstructure:"level" json:"level"`
-	OutputPaths []string `mapstructure:"outputpaths" json:"outputPaths"`
-}
-
 type ZapLogger struct {
 	log *zap.SugaredLogger
 }
 
-func NewZapLogger(settings logSettings) (*ZapLogger, error) {
+func NewZapLogger(c *Config) (*ZapLogger, error) {
 	logger := new(ZapLogger)
 
 	cfg := zap.NewDevelopmentConfig()
 
-	switch settings.Level {
+	switch c.Logging.Level {
 	case "error":
 		cfg.Level = zap.NewAtomicLevelAt(zap.ErrorLevel)
 	case "info":
@@ -38,7 +38,7 @@ func NewZapLogger(settings logSettings) (*ZapLogger, error) {
 		cfg.Level = zap.NewAtomicLevelAt(zap.DebugLevel)
 	}
 
-	cfg.OutputPaths = settings.OutputPaths
+	cfg.OutputPaths = c.Logging.OutputPaths
 
 	zapLogger, err := cfg.Build()
 	if err != nil {
