@@ -15,6 +15,7 @@ func main() {
 
 func run() error {
 	var configPath = flag.String("config", "", "The path to the config file")
+
 	flag.Parse()
 
 	app, err := NewApp(*configPath)

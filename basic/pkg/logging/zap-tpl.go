@@ -27,7 +27,7 @@ type ZapLogger struct {
 func NewZapLogger(c *config.Config) (*ZapLogger, error) {
 	logger := new(ZapLogger)
 
-	cfg := zap.NewDevelopmentConfig()
+	cfg := zap.NewProductionConfig()
 
 	switch c.Logging.Level {
 	case "error":
