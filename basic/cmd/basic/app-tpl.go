@@ -14,7 +14,7 @@ type App struct {
 }
 
 // NewApp constructs a new App instanace and its dependencies
-func NewApp(configPath *string) (*App, error) {
+func NewApp(configPath string) (*App, error) {
 	a := new(App)
 
 	m, err := newMetrics()
