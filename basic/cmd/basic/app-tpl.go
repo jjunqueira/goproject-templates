@@ -24,7 +24,7 @@ func NewApp() (*App, error) {
 
 	a.Metrics = m
 
-	c, err := newConfig("/etc/testproj/config.toml")
+	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}")
 	if err != nil {
 		return nil, err
 	}
