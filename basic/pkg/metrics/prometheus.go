@@ -7,11 +7,13 @@ type Metrics interface {
 // Metrics contains application metrics
 type PrometheusMetrics struct{}
 
+// NewPrometheusMetrics constructs a prometheus metrics instance
 func NewPrometheusMetrics() (*PrometheusMetrics, error) {
 	m := new(Metrics)
 	return m, nil
 }
 
-func (*PrometheusMetrics m) Render() string {
+// Renders the metrics for consumption by metrics gatherers
+func (m *PrometheusMetrics) Render() string {
 	return ""
 }
