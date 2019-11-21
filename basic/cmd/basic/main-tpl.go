@@ -17,10 +17,12 @@ func run() error {
 	var configPath = flag.String("config", "", "The path to the config file")
 	flag.Parse()
 
-	app, err := NewApp(configPath)
+	app, err := NewApp(*configPath)
 	if err != nil {
 		return err
 	}
+
+	app.Log.Info("Application bootstrap completed with configuration %v", app.Config)
 
 	return nil
 }
