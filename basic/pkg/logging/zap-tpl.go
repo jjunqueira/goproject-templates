@@ -24,7 +24,8 @@ type ZapLogger struct {
 	log *zap.SugaredLogger
 }
 
-func NewZapLogger(c *Config) (*ZapLogger, error) {
+// NewZapLogger constructs a new Zap based logger instance
+func NewZapLogger(c *config.Config) (*ZapLogger, error) {
 	logger := new(ZapLogger)
 
 	cfg := zap.NewDevelopmentConfig()

@@ -12,8 +12,8 @@ type LogSettings struct {
 	OutputPaths []string `mapstructure:"outputpaths" json:"outputPaths"`
 }
 
-// NewViperConfig construcs a new viper configuration loader
-func NewViperConfig(searchpaths ...string) (*Config, error) {
+// NewViperConfig constructs a new viper configuration loader
+func NewViperConfig(searchpaths []string) (*Config, error) {
 	c := new(Config)
 
 	viper.AutomaticEnv()

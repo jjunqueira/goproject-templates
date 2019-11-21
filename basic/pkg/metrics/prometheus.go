@@ -9,7 +9,7 @@ type PrometheusMetrics struct{}
 
 // NewPrometheusMetrics constructs a prometheus metrics instance
 func NewPrometheusMetrics() (*PrometheusMetrics, error) {
-	m := new(Metrics)
+	m := new(PrometheusMetrics)
 	return m, nil
 }
 

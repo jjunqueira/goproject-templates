@@ -1,16 +1,16 @@
 package main
 
 import (
-	"{{ .ModuleName }}/pkg/logging"
 	"{{ .ModuleName }}/pkg/config"
+	"{{ .ModuleName }}/pkg/logging"
 	"{{ .ModuleName }}/pkg/metrics"
 )
 
 // App contains application dependencies
 type App struct {
-	Metrics *Metrics
-	Config  *Config
-	Log     Logger
+	Config  *config.Config
+	Log     logging.Logger
+	Metrics metrics.Metrics
 }
 
 // NewApp constructs a new App instanace and its dependencies
@@ -24,14 +24,14 @@ func NewApp() (*App, error) {
 
 	a.Metrics = m
 
-	c, err := newConfig("/etc/{{ .Name }}/config.toml")
+	c, err := newConfig("/etc/testproj/config.toml")
 	if err != nil {
 		return nil, err
 	}
 
 	a.Config = c
 
-	l, err := newLogger(c.logging)
+	l, err := newLogger(c)
 	if err != nil {
 		return nil, err
 	}
@@ -43,14 +43,14 @@ func NewApp() (*App, error) {
 	return a, err
 }
 
-func newConfig(searchpaths ...string) (*Config, error) {
+func newConfig(searchpaths ...string) (*config.Config, error) {
 	return config.NewViperConfig(searchpaths)
 }
 
-func newLogger(settings logSettings) (Logger, error) {
-	return logging.NewZapLogger()
+func newLogger(c *config.Config) (logging.Logger, error) {
+	return logging.NewZapLogger(c)
 }
 
-func newMetrics() (Metrics, error) {
-	return logging.NewZapLogger()
+func newMetrics() (metrics.Metrics, error) {
+	return metrics.NewPrometheusMetrics()
 }
