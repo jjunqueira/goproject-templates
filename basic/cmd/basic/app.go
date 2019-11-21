@@ -1,4 +1,12 @@
-package app
+package main
+
+import (
+	"go.uber.org/zap"
+
+	"{{ .ModuleName }}/pkg/logging"
+	"{{ .ModuleName }}/pkg/config"
+	"{{ .ModuleName }}/pkg/metrics"
+)
 
 // App contains application dependencies
 type App struct {
@@ -18,7 +26,7 @@ func NewApp() (*App, error) {
 
 	a.Metrics = m
 
-	c, err := newConfig()
+	c, err := newConfig("/etc/{{ .Name }}/config.toml")
 	if err != nil {
 		return nil, err
 	}
@@ -35,4 +43,16 @@ func NewApp() (*App, error) {
 	a.Log.Info("Application bootstrap complete")
 
 	return a, err
+}
+
+func newConfig(searchpaths ...string) (*Config, error) {
+	return config.NewViperConfig(searchpaths)
+}
+
+func newLogger(settings logSettings) (Logger, error) {
+	return logging.NewZapLogger()
+}
+
+func newMetrics() (Metrics, error) {
+	return logging.NewZapLogger()
 }

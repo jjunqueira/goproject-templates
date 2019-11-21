@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-
-	"{{ .ModuleName }}/pkg/app"
 )
 
 func main() {
@@ -15,7 +13,7 @@ func main() {
 }
 
 func run() error {
-	app, err := app.NewApp()
+	app, err := NewApp()
 	if err != nil {
 		return err
 	}

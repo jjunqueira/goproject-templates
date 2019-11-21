@@ -1,8 +1,6 @@
-package app
+package logging
 
-import (
-	"go.uber.org/zap"
-)
+import "go.uber.org/zap"
 
 // Logger custom logging interface
 type Logger interface {
@@ -17,17 +15,17 @@ type Logger interface {
 	Errorw(msg string, keysAndValues ...interface{})
 }
 
-type logSettings struct {
+type LogSettings struct {
 	Level       string   `mapstructure:"level" json:"level"`
 	OutputPaths []string `mapstructure:"outputpaths" json:"outputPaths"`
 }
 
-type customLogger struct {
+type ZapLogger struct {
 	log *zap.SugaredLogger
 }
 
-func newLogger(settings logSettings) (*customLogger, error) {
-	logger := new(customLogger)
+func NewZapLogger(settings logSettings) (*ZapLogger, error) {
+	logger := new(ZapLogger)
 
 	cfg := zap.NewDevelopmentConfig()
 
@@ -52,38 +50,38 @@ func newLogger(settings logSettings) (*customLogger, error) {
 	return logger, nil
 }
 
-func (l *customLogger) Info(args ...interface{}) {
+func (l *ZapLogger) Info(args ...interface{}) {
 	l.log.Info(args)
 }
 
-func (l *customLogger) Infof(template string, args ...interface{}) {
+func (l *ZapLogger) Infof(template string, args ...interface{}) {
 	l.log.Infof(template, args)
 }
 
-func (l *customLogger) Infow(msg string, keysAndValues ...interface{}) {
+func (l *ZapLogger) Infow(msg string, keysAndValues ...interface{}) {
 	l.log.Infow(msg, keysAndValues)
 }
 
-func (l *customLogger) Debug(args ...interface{}) {
+func (l *ZapLogger) Debug(args ...interface{}) {
 	l.log.Debug(args)
 }
 
-func (l *customLogger) Debugf(template string, args ...interface{}) {
+func (l *ZapLogger) Debugf(template string, args ...interface{}) {
 	l.log.Debugf(template, args)
 }
 
-func (l *customLogger) Debugw(msg string, keysAndValues ...interface{}) {
+func (l *ZapLogger) Debugw(msg string, keysAndValues ...interface{}) {
 	l.log.Debugw(msg, keysAndValues)
 }
 
-func (l *customLogger) Error(args ...interface{}) {
+func (l *ZapLogger) Error(args ...interface{}) {
 	l.log.Error(args)
 }
 
-func (l *customLogger) Errorf(template string, args ...interface{}) {
+func (l *ZapLogger) Errorf(template string, args ...interface{}) {
 	l.log.Errorf(template, args)
 }
 
-func (l *customLogger) Errorw(msg string, keysAndValues ...interface{}) {
+func (l *ZapLogger) Errorw(msg string, keysAndValues ...interface{}) {
 	l.log.Errorw(msg, keysAndValues)
 }

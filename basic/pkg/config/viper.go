@@ -4,10 +4,11 @@ import "github.com/spf13/viper"
 
 // Config application configs
 type Config struct {
-	logging logSettings
+	Logging LogSettings
 }
 
-func newConfig(searchpaths ...string) (*Config, error) {
+// NewViperConfig construcs a new viper configuration loader
+func NewViperConfig(searchpaths ...string) (*Config, error) {
 	c := new(Config)
 
 	viper.AutomaticEnv()
