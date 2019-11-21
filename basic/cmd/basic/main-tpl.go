@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 )
@@ -13,7 +14,10 @@ func main() {
 }
 
 func run() error {
-	app, err := NewApp()
+	var configPath = flag.String("config", "", "The path to the config file")
+	flag.Parse()
+
+	app, err := NewApp(configPath)
 	if err != nil {
 		return err
 	}

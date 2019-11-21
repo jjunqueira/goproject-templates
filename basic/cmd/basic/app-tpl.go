@@ -14,7 +14,7 @@ type App struct {
 }
 
 // NewApp constructs a new App instanace and its dependencies
-func NewApp() (*App, error) {
+func NewApp(configPath string) (*App, error) {
 	a := new(App)
 
 	m, err := newMetrics()
@@ -24,7 +24,7 @@ func NewApp() (*App, error) {
 
 	a.Metrics = m
 
-	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}")
+	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}", configPath)
 	if err != nil {
 		return nil, err
 	}
