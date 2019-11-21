@@ -6,7 +6,6 @@ import (
 	"{{ .ModuleName }}/pkg/config"
 )
 
-
 // Logger custom logging interface
 type Logger interface {
 	Info(args ...interface{})
