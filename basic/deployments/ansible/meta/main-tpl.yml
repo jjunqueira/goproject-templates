@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: "Team Cymru"
+  description: { { .Name } }
+  company: "Team Cymru"
+  license: "Proprietary"
+  min_ansible_version: 2.4
+  platforms:
+    - name: OSX
+      versions:
+        - all
+    - name: Linux
+      versions:
+        - all
+    - name: FreeBSD
+      versions:
+        - all
+  galaxy_tags:
+    - { { .Name } }
