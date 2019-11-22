@@ -3,7 +3,6 @@
 - name: Add user "{{ .Name }}"  
   user:
     name: {{ .Name }}
-    groups: {{ .Name }}
     shell: /sbin/nologin
     append: yes
     comment: "{{ .Name }} app user"
@@ -34,6 +33,14 @@
     group: wheel
     mode: 0775
 
+- name: Create app etc directory
+  file:
+    path: "/etc/{{ .Name }}"
+    state: directory
+    owner: {{ .Name }}
+    group: wheel
+    mode: 0775
+
 - name: Create app logs directory
   file:
     path: "/var/log/{{ .Name }}"
@@ -53,15 +60,15 @@
 - name: Copy config file
   copy:
     src: "config.toml"
-    dest: "/etc/{{ .Name }}/config.toml"
+    dest: "/usr/share/{{ .Name }}/config.toml"
     owner: {{ .Name }}
     group: wheel
     mode: "0664"
 
 - name: Create conf symbolic links
   file:
-    src: "/usr/share/{{ .Name }}/conf"
-    dest: "/etc/{{ .Name }}"
+    src: "/usr/share/{{ .Name }}/config.toml"
+    dest: "/etc/{{ .Name }}/config.toml"
     state: link
 
 - name: Create binary symbolic links
