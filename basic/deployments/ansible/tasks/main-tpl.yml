@@ -60,14 +60,14 @@
 - name: Copy config file
   copy:
     src: "config.toml"
-    dest: "/usr/share/{{ .Name }}/config.toml"
+    dest: "/usr/share/{{ .Name }}/conf/config.toml"
     owner: {{ .Name }}
     group: wheel
     mode: "0664"
 
 - name: Create conf symbolic links
   file:
-    src: "/usr/share/{{ .Name }}/config.toml"
+    src: "/usr/share/{{ .Name }}/conf/config.toml"
     dest: "/etc/{{ .Name }}/config.toml"
     state: link
 
