@@ -4,9 +4,11 @@ import "github.com/spf13/viper"
 
 // Config application configs
 type Config struct {
+	Debug   bool `mapstructure:"debug" json:"debug"`
 	Logging LogSettings
 }
 
+// LogSettings logging settings
 type LogSettings struct {
 	Level       string   `mapstructure:"level" json:"level"`
 	OutputPaths []string `mapstructure:"outputpaths" json:"outputPaths"`

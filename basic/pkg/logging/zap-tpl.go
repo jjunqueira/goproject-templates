@@ -19,6 +19,7 @@ type Logger interface {
 	Errorw(msg string, keysAndValues ...interface{})
 }
 
+// ZapLogger Logger implementation
 type ZapLogger struct {
 	log *zap.SugaredLogger
 }
@@ -27,7 +28,12 @@ type ZapLogger struct {
 func NewZapLogger(c *config.Config) (*ZapLogger, error) {
 	logger := new(ZapLogger)
 
-	cfg := zap.NewProductionConfig()
+	var cfg zap.Config
+	if c.Debug {
+		cfg = zap.NewDevelopmentConfig()
+	} else {
+		cfg = zap.NewProductionConfig()
+	}
 
 	switch c.Logging.Level {
 	case "error":
@@ -85,3 +91,4 @@ func (l *ZapLogger) Errorf(template string, args ...interface{}) {
 func (l *ZapLogger) Errorw(msg string, keysAndValues ...interface{}) {
 	l.log.Errorw(msg, keysAndValues)
 }
+

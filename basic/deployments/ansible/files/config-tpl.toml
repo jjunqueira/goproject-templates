@@ -1,3 +1,5 @@
+debug=false
+
 [logging]
 level="debug"
 encoding="json"
