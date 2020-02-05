@@ -20,7 +20,7 @@ func run() error {
 
 	flag.Parse()
 
-	app, err := app.Init(*configPath)
+	err := app.Init(*configPath)
 	if err != nil {
 		return err
 	}
