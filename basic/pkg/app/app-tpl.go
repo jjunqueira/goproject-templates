@@ -10,7 +10,7 @@ var Config config.AppConfig
 
 // Init initializes application dependencies
 func Init(configPath string) error {
-	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}", configPath)
+	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}", ".", configPath)
 	if err != nil {
 		return err
 	}
