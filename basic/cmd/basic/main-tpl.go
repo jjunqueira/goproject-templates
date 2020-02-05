@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"{{ .ModuleName }}/pkg/app"
+	"{{ .ModuleName }}/pkg/log"
 )
 
 func main() {
@@ -18,12 +20,12 @@ func run() error {
 
 	flag.Parse()
 
-	app, err := NewApp(*configPath)
+	app, err := app.Init(*configPath)
 	if err != nil {
 		return err
 	}
 
-	app.Log.Info("Application bootstrap completed with configuration %v", app.Config)
+	log.Info("Application bootstrap completed with configuration %v", app.Config)
 
 	return nil
 }

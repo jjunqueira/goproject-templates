@@ -2,8 +2,8 @@ package config
 
 import "github.com/spf13/viper"
 
-// Config application configs
-type Config struct {
+// AppConfig application configs
+type AppConfig struct {
 	Debug   bool `mapstructure:"debug" json:"debug"`
 	Logging LogSettings
 }
@@ -15,8 +15,8 @@ type LogSettings struct {
 }
 
 // NewViperConfig constructs a new viper configuration loader
-func NewViperConfig(searchpaths []string) (*Config, error) {
-	c := new(Config)
+func NewViperConfig(searchpaths []string) (*AppConfig, error) {
+	c := new(AppConfig)
 
 	viper.AutomaticEnv()
 	viper.SetConfigName("config")
