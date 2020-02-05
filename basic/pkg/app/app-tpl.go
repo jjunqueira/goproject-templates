@@ -10,7 +10,6 @@ var Config config.AppConfig
 
 // NewApp constructs a new App instanace and its dependencies
 func NewApp(configPath string) (*App, error) {
-
 	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}", configPath)
 	if err != nil {
 		return nil, err
