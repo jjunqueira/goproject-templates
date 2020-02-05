@@ -24,7 +24,7 @@ define copy-support
 endef
 
 # Full build commands
-all: mods lint test build
+all: clean-target mods lint test build
 release: clean mods lint test package-ansible
 
 # Code cleanup commands
@@ -34,7 +34,7 @@ mods:
 format: $(SOURCE_LIST)
 	find . -name \*.go -not -path vendor -not -path target -exec $(GOPATH)/bin/goimports -w {} \;
 lint: format
-	${GOPATH}/bin/golangci-lint run --enable-all --disable funlen
+	${GOPATH}/bin/golangci-lint run
 
 # Build commands
 build: 
@@ -43,6 +43,8 @@ test:
 	$(GOTEST) -v ./...
 clean:
 	go clean -modcache -testcache -cache
+	rm -rf $(TARGET_DIR_BASE)
+clean-target:
 	rm -rf $(TARGET_DIR_BASE)
 
 # Cross compilation
@@ -80,7 +82,7 @@ package-linux: build-linux
 	tar -zcvf $(TARGET_DIR_BASE)/$(PACKAGE_NAME)-$(GOOS).tar.gz $(TARGET_DIR_BASE)/$(GOOS)/*
 package-freebsd: build-freebsd
 	tar -zcvf $(TARGET_DIR_BASE)/$(PACKAGE_NAME)-$(GOOS).tar.gz $(TARGET_DIR_BASE)/$(GOOS)/*
-package-ansible: build-all
+package-ansible: clean-target build-all
 	cp -r deployments/ansible target/ansible
 	cp -r $(TARGET_DIR_BASE)/**/bin/* $(TARGET_DIR_BASE)/ansible/files
 	cd target/ansible; tar -zcvf ../$(PACKAGE_NAME)_ansible.tar.gz .

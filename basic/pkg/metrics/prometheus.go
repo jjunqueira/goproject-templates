@@ -1,19 +1,26 @@
 package metrics
 
-type Metrics interface {
-	Render() string
-}
+import (
+	"fmt"
 
-// Metrics contains application metrics
-type PrometheusMetrics struct{}
+	"github.com/prometheus/client_golang/prometheus"
+)
 
-// NewPrometheusMetrics constructs a prometheus metrics instance
-func NewPrometheusMetrics() (*PrometheusMetrics, error) {
-	m := new(PrometheusMetrics)
-	return m, nil
-}
+// Create your metrics here
+var (
+	// MyCounter counts important things
+	MyCounter = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Name: "import_things_total",
+			Help: "The number of important things that have happened",
+		},
+	)
+)
 
-// Renders the metrics for consumption by metrics gatherers
-func (m *PrometheusMetrics) Render() string {
-	return ""
+// Register your metrics here
+func init() {
+	err := prometheus.Register(MyCounter)
+	if err != nil {
+		panic(fmt.Sprintf("unable to initialize metrics %v", err))
+	}
 }
