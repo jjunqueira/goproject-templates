@@ -25,7 +25,7 @@ func run() error {
 		return err
 	}
 
-	log.Info("Application bootstrap completed with configuration %v", app.Config)
+	log.Logger.Infow("Application bootstrap completed with configuration", "config", app.Config)
 
 	return nil
 }

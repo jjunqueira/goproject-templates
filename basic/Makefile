@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 # Go parameters
 GOCMD=go
 GOBUILD=$(GOCMD) build
@@ -37,7 +39,9 @@ lint: format
 	${GOPATH}/bin/golangci-lint run
 
 # Build commands
+build: clean-target
 build: 
+	$(call copy-support)
 	$(call compile)
 test: 
 	$(GOTEST) -v ./...
