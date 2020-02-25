@@ -4,7 +4,8 @@ import "github.com/spf13/viper"
 
 // AppConfig application configs
 type AppConfig struct {
-	Debug   bool `mapstructure:"debug" json:"debug"`
+	Debug   bool   `mapstructure:"debug" json:"debug"`
+	Version string `mapstructure:"version" json:"version"`
 	Logging LogSettings
 }
 
