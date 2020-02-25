@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL=/bin/bash
 
 # Go parameters
 GOCMD=go
@@ -8,6 +8,9 @@ DIR_NAME := $(shell pwd)
 PACKAGE_NAME := $(shell basename $(DIR_NAME))
 TARGET_DIR_BASE := $(DIR_NAME)/target
 TARGET_DIR := $(TARGET_DIR_BASE)
+VERSION=$(shell git describe --tags)
+BUILD=$(shell date +%FT%T%z)
+LDFLAGS=-ldflags "-w -s -X main.version=$(VERSION) -X main.build=$(BUILD)"
 
 # define functions - These can be reused in multiple targets. Any exported VARs are available in the function
 define compile 
@@ -16,7 +19,7 @@ define compile
 			GOOS=$${OSTYPE};\
 		fi; \
 		if [[ -d "$${COMMAND}" ]]; then \
-			go build -trimpath -v -o "$(TARGET_DIR)/bin/$$(basename $${COMMAND})-$${GOOS}" "$${COMMAND}/..."; \
+			go build -trimpath -v -o "$(TARGET_DIR)/bin/$$(basename $${COMMAND})-$${GOOS}" $(LDFLAGS) "$${COMMAND}/..."; \
 		fi \
 	done
 endef
@@ -40,7 +43,7 @@ lint: format
 
 # Build commands
 build: clean-target
-build: 
+build:
 	$(call copy-support)
 	$(call compile)
 test: 

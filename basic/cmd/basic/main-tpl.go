@@ -8,6 +8,10 @@ import (
 	"{{ .ModuleName }}/pkg/log"
 )
 
+//Populated via LDFLAGS on build
+var version string
+var build string
+
 func main() {
 	if err := run(); err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
@@ -20,12 +24,12 @@ func run() error {
 
 	flag.Parse()
 
-	err := app.Init(*configPath)
+	err := app.Init(version, build, *configPath)
 	if err != nil {
 		return err
 	}
 
-	log.Logger.Infow("Application bootstrap completed with configuration", "config", app.Config)
+	log.Logger().Infow("Application bootstrap completed", "config", fmt.Sprintf("%v", app.Config))
 
 	return nil
 }

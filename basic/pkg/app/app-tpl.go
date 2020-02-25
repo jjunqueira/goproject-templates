@@ -9,7 +9,7 @@ import (
 var Config config.AppConfig
 
 // Init initializes application dependencies
-func Init(configPath string) error {
+func Init(version string, build string, configPath string) error {
 	c, err := newConfig("/etc/{{ .Name }}/", "/usr/share/{{ .Name }}", ".", configPath)
 	if err != nil {
 		return err
@@ -17,10 +17,12 @@ func Init(configPath string) error {
 
 	Config = *c
 
-	err = log.Configure(c)
+	err = log.Configure(version, build, c)
 	if err != nil {
 		return err
 	}
+
+	c.Version = version
 
 	return err
 }
