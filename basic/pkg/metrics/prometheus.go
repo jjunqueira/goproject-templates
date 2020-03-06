@@ -11,7 +11,7 @@ var (
 	// MyCounter counts important things
 	MyCounter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Name: "import_things_total",
+			Name: "important_things_total",
 			Help: "The number of important things that have happened",
 		},
 	)

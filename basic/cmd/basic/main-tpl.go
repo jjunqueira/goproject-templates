@@ -29,7 +29,7 @@ func run() error {
 		return err
 	}
 
-	log.Logger().Infow("Application bootstrap completed", "config", fmt.Sprintf("%v", app.Config))
+	log.Infow("Application bootstrap completed", "config", fmt.Sprintf("%v", app.Config))
 
 	return nil
 }

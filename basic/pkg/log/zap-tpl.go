@@ -31,8 +31,8 @@ func init() {
 	logger = zlogger
 }
 
-//CtxLog for application
-func CtxLog(ctx context.Context) *zap.SugaredLogger {
+//WithCtx for application
+func WithCtx(ctx context.Context) *zap.SugaredLogger {
 	newLogger := logger
 	if ctx != nil {
 		if ctxRqID, ok := ctx.Value(RequestIDKey).(string); ok {
@@ -40,11 +40,6 @@ func CtxLog(ctx context.Context) *zap.SugaredLogger {
 		}
 	}
 	return newLogger
-}
-
-//Logger for application
-func Logger() *zap.SugaredLogger {
-	return logger
 }
 
 // newDefaultZapLogger Creates a new un-configured logger, this will be used for tests
@@ -77,7 +72,7 @@ func Configure(version string, build string, c *config.AppConfig) error {
 	cfg.InitialFields["app_version"] = version
 	cfg.InitialFields["app_build"] = build
 	cfg.InitialFields["app_location"] = os.Args[0]
-	cfg.InitialFields["go_version"] = runtime.Version()
+	cfg.InitialFields["compiler"] = runtime.Version()
 	cfg.InitialFields["pid"] = os.Getpid()
 
 	var name string
@@ -106,7 +101,91 @@ func Configure(version string, build string, c *config.AppConfig) error {
 		return err
 	}
 
-	logger = zapLogger.Sugar()
+	logger = zapLogger.WithOptions(zap.AddCallerSkip(2)).Sugar()
 
 	return nil
+}
+
+func DPanic(args ...interface{}) {
+	logger.DPanic(args...)
+}
+
+func DPanicf(template string, args ...interface{}) {
+	logger.DPanicf(template, args...)
+}
+
+func DPanicw(msg string, keysAndValues ...interface{}) {
+	logger.DPanicw(msg, keysAndValues...)
+}
+
+func Debug(args ...interface{}) {
+	logger.Debug(args...)
+}
+
+func Debugf(template string, args ...interface{}) {
+	logger.Debugf(template, args...)
+}
+
+func Debugw(msg string, keysAndValues ...interface{}) {
+	logger.Debugw(msg, keysAndValues...)
+}
+
+func Error(args ...interface{}) {
+	logger.Error(args...)
+}
+
+func Errorf(template string, args ...interface{}) {
+	logger.Errorf(template, args...)
+}
+
+func Errorw(msg string, keysAndValues ...interface{}) {
+	logger.Errorw(msg, keysAndValues...)
+}
+
+func Fatal(args ...interface{}) {
+	logger.Fatal(args...)
+}
+
+func Fatalf(template string, args ...interface{}) {
+	logger.Fatalf(template, args...)
+}
+
+func Fatalw(msg string, keysAndValues ...interface{}) {
+	logger.Fatalw(msg, keysAndValues...)
+}
+
+func Info(args ...interface{}) {
+	logger.Info(args...)
+}
+
+func Infof(template string, args ...interface{}) {
+	logger.Infof(template, args...)
+}
+
+func Infow(msg string, keysAndValues ...interface{}) {
+	logger.Infow(msg, keysAndValues...)
+}
+
+func Panic(args ...interface{}) {
+	logger.Panic(args...)
+}
+
+func Panicf(template string, args ...interface{}) {
+	logger.Panicf(template, args...)
+}
+
+func Panicw(msg string, keysAndValues ...interface{}) {
+	logger.Panicw(msg, keysAndValues...)
+}
+
+func Warn(args ...interface{}) {
+	logger.Warn(args...)
+}
+
+func Warnf(template string, args ...interface{}) {
+	logger.Warnf(template, args...)
+}
+
+func Warnw(msg string, keysAndValues ...interface{}) {
+	logger.Warnw(msg, keysAndValues...)
 }
