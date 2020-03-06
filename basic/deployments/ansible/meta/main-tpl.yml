@@ -1,18 +1,12 @@
 ---
 galaxy_info:
-  author: "Team Cymru"
+  author: "Foo"
   description: {{ .Name }}
-  company: "Team Cymru"
+  company: "Bar"
   license: "Proprietary"
   min_ansible_version: 2.4
   platforms:
-    - name: OSX
-      versions:
-        - all
     - name: Linux
-      versions:
-        - all
-    - name: FreeBSD
       versions:
         - all
   galaxy_tags:
