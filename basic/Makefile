@@ -39,7 +39,7 @@ mods:
 format: $(SOURCE_LIST)
 	find . -name \*.go -not -path vendor -not -path target -exec $(GOPATH)/bin/goimports -w {} \;
 lint: format
-	${GOPATH}/bin/golangci-lint run
+	golangci-lint run
 
 # Build commands
 build: clean-target
